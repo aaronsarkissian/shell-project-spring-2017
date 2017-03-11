@@ -25,6 +25,7 @@ void parse(char *line, char *argv[]) {
 }
 
 void execute(char *argv[]) {
+  int status;
   //compare two strings. if equal returns 0
   if (strcmp(argv[0], "exit") == 0) {
     exit(0); //command for exiting from shell
@@ -35,6 +36,6 @@ void execute(char *argv[]) {
   }
   //wait until current process finishes its job
   else {
-    wait(NULL);
+    waitpid(-1, &status, 0);
   }
 }
