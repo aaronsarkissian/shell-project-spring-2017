@@ -25,6 +25,13 @@ these installed on your machine, use `aptitude`
 $ aptitude install libc++1 clang lldb make libasan1 libasan1-dbg libasan0
 ```
 
+For Linux a convenience `Makefile` target has been added to get all
+the needed dependencies, just do:
+
+```shell
+$ make install_dependencies
+```
+
 # Windows
 
 Your options are: 
@@ -32,6 +39,7 @@ Your options are:
 1. Get rid of Windows, install Linux (Debian or Ubuntu is good)
 2. Dual boot Linux and Windows
 3. Get a Virtual Machine on Windows, can use VMWare or Virtual Box.
+
 
 Development Roadmap (Always check for updates as this is always updating)
 -------------------------------------------------------------------------
@@ -100,6 +108,14 @@ You should be invoking `iterate_shell` as so:
 ```shell
 $ make test_shell
 ```
+
+You should also run the automated test suite with: 
+
+```shell
+$ make run_tests
+```
+
+YOU MUST run this before submitting any Pull Request.
 
 # System calls you are expected to use
 
