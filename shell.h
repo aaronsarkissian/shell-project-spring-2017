@@ -7,6 +7,5 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-
 void parse(char *line, char *argv[]);
 void execute(char *argv[]);

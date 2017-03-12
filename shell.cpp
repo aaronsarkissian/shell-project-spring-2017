@@ -13,7 +13,7 @@ void parse(char *line, char *argv[]) {
       *line++ = '\0';
     }
     *argv++ = line; //saves the position
-    //traverse to the end of command
+    //traverse to the end of the command
     while (*line != '\0' 
       && *line != ' ' 
       && *line != '\t' 
