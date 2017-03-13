@@ -1,8 +1,10 @@
 #include "../shell.h"
 
-int main(int argc, char **argv) {
+int main() {
+  
+  char c = '\0';
 
-  while (true) {
+  while (c != EOF) {
     get_comand();
   }
   return 0;
