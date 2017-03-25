@@ -40,7 +40,7 @@ struct Path {
 
 void parse(char *line, char *argv[]) {
 
-	char last_char = '\0';
+  char last_char = '\0';
 
   while(*line != '\0') {
     while(*line == ' ' 
@@ -54,13 +54,13 @@ void parse(char *line, char *argv[]) {
       && *line != ' ' 
       && *line != '\t' 
       && *line != '\n') {
-    	if (io_redirections(last_char, line) == 2) {
-    		cout << "special_char: " << give_me_color(3) << last_char << *line << give_me_color(0) << endl;
-    	}
-    	if(io_redirections(last_char, line) == 1) {
-    		cout << "special_char: " << give_me_color(2) << *line << give_me_color(0) << endl;
-    	}
-    	last_char = *line;
+      if (io_redirections(last_char, line) == 2) {
+        cout << "special_char: " << give_me_color(3) << last_char << *line << give_me_color(0) << endl;
+      }
+      if(io_redirections(last_char, line) == 1) {
+        cout << "special_char: " << give_me_color(2) << *line << give_me_color(0) << endl;
+      }
+      last_char = *line;
       line++;
     }
   }
@@ -68,22 +68,22 @@ void parse(char *line, char *argv[]) {
 }
 
 int io_redirections(char previous_char, char *current_char) {
-	//char *temp_char;
-	if(previous_char == *current_char && special_chars(current_char)) {
-		return 2;
-	}
-	else if (special_chars(current_char)) {
-		return 1;
-	}
-	//return (char *) temp_char;
-	return 0;
+  //char *temp_char;
+  if(previous_char == *current_char && special_chars(current_char)) {
+    return 2;
+  }
+  else if (special_chars(current_char)) {
+    return 1;
+  }
+  //return (char *) temp_char;
+  return 0;
 }
 
 int special_chars(char *unique) {
   if(*unique == '<' 
-  	|| *unique == '>' 
-  	|| *unique == '|') {
-  	return 1;
+    || *unique == '>' 
+    || *unique == '|') {
+    return 1;
   }
   return 0;
 }
