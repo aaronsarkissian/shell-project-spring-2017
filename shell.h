@@ -12,6 +12,7 @@
 void get_comand(void);
 void parse(char *line, char *argv[]);
 void fork_exec(char *argv[]);
-int special_char(char *special_char); //return type should be changed
+int special_chars(char *unique);
+int io_redirections(char last_char, char *special_char); //change return type to char*
 struct Path;
 std::string give_me_color(int);
