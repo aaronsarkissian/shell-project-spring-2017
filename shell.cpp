@@ -5,7 +5,6 @@ using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::stringstream;
 
 struct Path {
   vector<string> paths;
@@ -41,7 +40,7 @@ struct Path {
 void parse(char *line, char *argv[]) {
 
   char last_char = '\0';
-
+  //fill the specified (space, enter, tab) chars with null char
   while(*line != '\0') {
     while(*line == ' ' 
       || *line == '\n' 
@@ -57,7 +56,7 @@ void parse(char *line, char *argv[]) {
       if (io_redirections(last_char, line) == 2) {
         cout << "special_char: " << give_me_color(3) << last_char << *line << give_me_color(0) << endl;
       }
-      if(io_redirections(last_char, line) == 1) {
+      else if(io_redirections(last_char, line) == 1) {
         cout << "special_char: " << give_me_color(2) << *line << give_me_color(0) << endl;
       }
       last_char = *line;
@@ -66,19 +65,19 @@ void parse(char *line, char *argv[]) {
   }
   argv[sizeof(line)+1] = NULL; //end of arguments sentinel is NULL
 }
-
+//detection of special characters (AKA io redirections)
 int io_redirections(char previous_char, char *current_char) {
   //char *temp_char;
-  if(previous_char == *current_char && special_chars(current_char)) {
+  if((previous_char == *current_char) && special_chars(current_char)) {
     return 2;
   }
-  else if (special_chars(current_char)) {
+  else if ((previous_char != *current_char) && special_chars(current_char)) {
     return 1;
   }
   //return (char *) temp_char;
   return 0;
 }
-
+//single special char detection
 int special_chars(char *unique) {
   if(*unique == '<' 
     || *unique == '>' 
@@ -90,7 +89,7 @@ int special_chars(char *unique) {
 
 void fork_exec(char *argv[]) {
 
-  //execvp implementation yet
+  //execvp implementation yet, change it to execve
   int status;
 
   if(strcmp(argv[0], "exit") == 0) {
@@ -98,17 +97,24 @@ void fork_exec(char *argv[]) {
   }
 
   pid_t pid = fork(); //pid_t is better to avoid int size regardless of int size in different systems
-  if(pid == -1){
-    cout << "OH NO :( I am sick, can't do that";
-  }
-  else if(pid == 0) {
-    //child
+  if(pid == 0) {
+    //Child process
     //exec is execute, 'p': give the name of the program and the operating system will look for the program in the path
-    execvp(*argv, argv);
+    if (execvp(*argv, argv) == -1){
+      cout << give_me_color(1) << "Invalid command" << give_me_color(0) << endl;
+    }
+  }
+  else if(pid < 0){
+    //Error forking
+    cout << give_me_color(1) << "OH NO :( I am sick, can't do that" << give_me_color(0) << endl;
+    exit(EXIT_FAILURE);
   }
   else {
-    //parent
-    waitpid(pid, &status, 0);
+    //Parent process
+    do {
+      waitpid(pid, &status, WUNTRACED);
+    }
+    while (!WIFEXITED(status) && !WIFSIGNALED(status)); // man wait(2)
   }
 }
 
@@ -121,7 +127,7 @@ void get_comand(void) {
   cout << "[oh my gosh shell] $ ";
   getline(cin, input_line);
   strcpy(line, input_line.c_str()); //string to char array converter
-  cout << give_me_color(1) << line << give_me_color(0) << endl;
+  cout << give_me_color(3) << line << give_me_color(0) << endl;
   parse(line, argv);
   fork_exec(argv);
 }
