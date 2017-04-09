@@ -1,40 +1,14 @@
 #include "shell.h"
 
-//using std::vector;
-//using std::string;
-using std::cin;
-/*
 struct Path {
-  vector<string> paths;
   void show_path(){
-    for (size_t i = 0; i < paths.size(); i++) {
-      cout<<paths[i];
-    }
   }
-  void add_path(string path){
-    bool shouldAdd = true;
-    for (size_t i = 0; i < paths.size(); i++) {
-      if(paths[i] == path){
-        shouldAdd = false;
-      }
-    }
-    if(shouldAdd){
-      paths.push_back(path);
-    }
-    else{
-      cout<<"The path already exists \n";
-    }
+  void add_path(char* path){
   }
-  void delete_path(string path){
-    for (size_t i = 0; i < paths.size(); i++) {
-      if(paths[i] == path){
-        paths.erase(paths.begin() + i,paths.begin() + i + 1);
-        break;
-      }
-    }
+  void delete_path(char* path){
   }
 };
-*/
+
 void parse(char *line, char *argv[]) {
 
   char last_char = '\0';
@@ -122,7 +96,7 @@ void get_comand(void) {
   char *argv[1024];
 
   printf("%s", "[oh my gosh shell] $ ");
-  cin.getline(line, 1024);
+  fgets(line, 1024, stdin);
   printf("%s%s%s\n", give_me_color(3), line, give_me_color(0));
   parse(line, argv);
   fork_exec(argv);

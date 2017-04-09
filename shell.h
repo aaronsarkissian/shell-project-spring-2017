@@ -1,13 +1,8 @@
 #pragma once
-#include <iostream>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
-//#include <cstring>
-//#include <string>
-//#include <vector>
-//#include <sstream>
-//#include <cstdio>
 #include <sys/types.h>
 #include <sys/wait.h>
 
