@@ -92,11 +92,17 @@ void fork_exec(char *argv[]) {
 
 void get_comand(void) {
 
-  char line[1024];
-  char *argv[1024];
+  size_t bufsize = 1024;
+  char *line;
+  char *argv[bufsize];
+  line = (char *)malloc(bufsize * sizeof(char));
+  if (line == NULL) {
+    perror("Unable to allocate line");
+    exit(EXIT_FAILURE);
+  }
 
   printf("%s", "[oh my gosh shell] $ ");
-  fgets(line, 1024, stdin);
+  getline(&line, &bufsize, stdin);
   printf("%s%s%s\n", give_me_color(3), line, give_me_color(0));
   parse(line, argv);
   fork_exec(argv);
