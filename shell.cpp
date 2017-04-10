@@ -1,12 +1,7 @@
 #include "shell.h"
 
 struct Path {
-  void show_path(){
-  }
-  void add_path(char* path){
-  }
-  void delete_path(char* path){
-  }
+
 };
 
 void parse(char *line, char *argv[]) {
@@ -95,8 +90,8 @@ void get_comand(void) {
   size_t bufsize = 1024;
   char *line;
   char *argv[bufsize];
-  line = (char *)malloc(bufsize * sizeof(char));
-  if (line == NULL) {
+  line = malloc(bufsize);
+  if(line == NULL) {
     perror("Unable to allocate line");
     exit(EXIT_FAILURE);
   }
@@ -115,23 +110,23 @@ char * give_me_color(int color_index) {
   // 5 - for magenta, 0 - for default
   switch (color_index) {
     case 1:
-      output = (char*)"\033[1;31m";
+      output = "\033[1;31m";
       break;
     case 2:
-      output = (char*)"\033[1;32m";
+      output = "\033[1;32m";
       break;
     case 3:
-      output = (char*)"\033[1;34m";
+      output = "\033[1;34m";
       break;
     case 4:
-      output = (char*)"\033[1;36m";
+      output = "\033[1;36m";
       break;
     case 5:
-      output = (char*)"\033[1;35m";
+      output = "\033[1;35m";
       break;
     case 0:
     default:
-      output = (char*)"\033[0m";
+      output = "\033[0m";
   }
   return output;
 }
