@@ -1,7 +1,7 @@
 # -*- makefile -*-
-main := main/main.cpp
+main := main/main.c
 program := iterate_shell
-flags := -std=c++14 -g -Wall -Wextra -I./
+flags := -g -Wall -Wextra -I./
 lib_name := libshell.a
 # Just add another file here when you're done, ending in .o
 objs := shell.o
@@ -17,11 +17,11 @@ endif
 
 # We statically link to avoid shared library hassles.
 program:library
-	clang++ ${maybe_static_pharse} ${main} -L. \
+	clang ${maybe_static_pharse} ${main} -L. \
 	-lshell ${flags} -o ${program}
 
-%.o:%.cpp
-	clang++ -c ${flags} $<
+%.o:%.c
+	clang -c ${flags} $<
 
 # Need to have a dependency on things that end with .o to have the
 # wildcard pattern go off.
